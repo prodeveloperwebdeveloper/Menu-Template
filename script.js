@@ -242,7 +242,7 @@ function sendWhatsAppMessage(lat, lng, currentTotal, targetWindow) {
     }
 
     const encodedText = encodeURIComponent(whatsappText);
-    const whatsappLink = `https://wa.me{encodedText}`;
+    const whatsappLink = `https://wa.me/96176045076?text=${encodedText}`;
     
     // 3. Redirect the already-opened window to the WhatsApp API
     if (targetWindow) {
