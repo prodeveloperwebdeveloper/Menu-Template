@@ -200,23 +200,25 @@ function renderSummaryPage(items, total) {
     whatsappBtn.id = 'whatsappBtn';
     container.appendChild(whatsappBtn);
 
-    whatsappBtn.onclick = () => {
-    // 1. Immediately open a "Loading" window to bypass popup blockers
+   whatsappBtn.onclick = () => {
     const whatsappWindow = window.open('', '_blank');
-    whatsappWindow.document.write("Loading WhatsApp...");
+    whatsappWindow.document.write("Fetching precise location...");
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
-                // Pass coordinates to generate the Google Maps link
                 sendWhatsAppMessage(latitude, longitude, total, whatsappWindow);
             },
             (error) => {
                 console.warn('Geolocation error:', error);
                 sendWhatsAppMessage(null, null, total, whatsappWindow);
             },
-            { timeout: 5000 } // Sets a 5-second limit for GPS response
+            { 
+                enableHighAccuracy: true, // Forces GPS for better precision
+                timeout: 10000,           // Wait up to 10 seconds for a lock
+                maximumAge: 0             // Don't use a cached location
+            }
         );
     } else {
         sendWhatsAppMessage(null, null, total, whatsappWindow);
@@ -233,10 +235,9 @@ function sendWhatsAppMessage(lat, lng, currentTotal, targetWindow) {
 
     whatsappText += `\nGrand Total: $${currentTotal.toFixed(2)}`;
 
-    // 2. Generate the clickable Google Maps Link
     if (lat && lng) {
-        // Uses the universal Google Maps search URL format
-        whatsappText += `\n\n📍 Delivery Location:\nhttps://www.google.com{lat},${lng}`;
+        // Double check: Both variables now have the $ sign
+        whatsappText += `\n\n📍 Delivery Location:\nhttps://www.google.com/maps?q=${lat},${lng}`;
     } else {
         whatsappText += `\n\nLocation: Not provided`;
     }
@@ -244,7 +245,6 @@ function sendWhatsAppMessage(lat, lng, currentTotal, targetWindow) {
     const encodedText = encodeURIComponent(whatsappText);
     const whatsappLink = `https://wa.me/96176045076?text=${encodedText}`;
     
-    // 3. Redirect the already-opened window to the WhatsApp API
     if (targetWindow) {
         targetWindow.location.href = whatsappLink;
     } else {
