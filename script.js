@@ -201,49 +201,57 @@ function renderSummaryPage(items, total) {
     container.appendChild(whatsappBtn);
 
     whatsappBtn.onclick = () => {
-    // 1. Immediately open a blank window (this prevents the popup blocker)
-    const whatsappWindow = window.open('about:blank', '_blank');
-    
-    let userLocation = "Location not available";
+    // 1. Immediately open a "Loading" window to bypass popup blockers
+    const whatsappWindow = window.open('', '_blank');
+    whatsappWindow.document.write("Loading WhatsApp...");
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                userLocation = `Lat: ${position.coords.latitude}, Long: ${position.coords.longitude}`;
-                // 2. Redirect the already-opened window
-                sendWhatsAppMessage(userLocation, total, whatsappWindow);
+                const { latitude, longitude } = position.coords;
+                // Pass coordinates to generate the Google Maps link
+                sendWhatsAppMessage(latitude, longitude, total, whatsappWindow);
             },
             (error) => {
                 console.warn('Geolocation error:', error);
-                sendWhatsAppMessage(userLocation, total, whatsappWindow);
-            }
+                sendWhatsAppMessage(null, null, total, whatsappWindow);
+            },
+            { timeout: 5000 } // Sets a 5-second limit for GPS response
         );
     } else {
-        sendWhatsAppMessage(userLocation, total, whatsappWindow);
+        sendWhatsAppMessage(null, null, total, whatsappWindow);
     }
 };
 
-// Update sendWhatsAppMessage to accept the window reference
-function sendWhatsAppMessage(location, currentTotal, targetWindow) {
+function sendWhatsAppMessage(lat, lng, currentTotal, targetWindow) {
     let whatsappText = "I want to order:\n";
     const summaryItems = document.querySelectorAll(".summary-item p");
+    
     summaryItems.forEach(p => {
         whatsappText += `- ${p.innerText.trim()}\n`;
     });
-    whatsappText += `\nGrand Total: $${currentTotal.toFixed(2)}\n`;
-    whatsappText += `\nUser Location: ${location}`;
+
+    whatsappText += `\nGrand Total: $${currentTotal.toFixed(2)}`;
+
+    // 2. Generate the clickable Google Maps Link
+    if (lat && lng) {
+        // Uses the universal Google Maps search URL format
+        whatsappText += `\n\n📍 Delivery Location:\nhttps://www.google.com{lat},${lng}`;
+    } else {
+        whatsappText += `\n\nLocation: Not provided`;
+    }
 
     const encodedText = encodeURIComponent(whatsappText);
-    const whatsappLink = `https://wa.me/96176045076?text=${encodedText}`;
+    const whatsappLink = `https://wa.me{encodedText}`;
     
-    // 3. Update the blank window's URL
+    // 3. Redirect the already-opened window to the WhatsApp API
     if (targetWindow) {
         targetWindow.location.href = whatsappLink;
     } else {
-        // Fallback for browsers where window.open failed
-        window.location.href = whatsappLink;
+        window.open(whatsappLink, '_blank');
     }
-}}
+}
+
    
 
     
