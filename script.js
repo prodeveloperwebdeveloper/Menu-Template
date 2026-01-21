@@ -196,9 +196,11 @@ function renderSummaryPage(items, total) {
     container.appendChild(backBtn);
 
     const whatsappBtn = document.createElement('button');
-    whatsappBtn.innerText = 'Order';
+    whatsappBtn.innerText = 'Send Order On Whatsapp';
     whatsappBtn.id = 'whatsappBtn';
     container.appendChild(whatsappBtn);
+
+
 
    whatsappBtn.onclick = () => {
     const whatsappWindow = window.open('', '_blank');
