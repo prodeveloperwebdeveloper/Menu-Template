@@ -103,12 +103,18 @@ header {
 
 /* Category Cards */
 .categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+   display: grid;
+  grid-template-columns: repeat(3, 1fr); 
   gap: 20px;
   padding: 20px;
   width: 100%;
   max-width: 1200px;
+  
+  /* Centers the grid container itself */
+  margin: 0 auto; 
+  
+  /* Centers the cards horizontally within their grid cells */
+  justify-items: center; 
 }
  #category-title{
   color:White;
@@ -247,11 +253,10 @@ header {
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-    z-index: 100;
-    padding: 5px 10px;
+  z-index: 100;
+  padding: 5px 10px;
   font-size: 1rem;
-
-width:20vw;
+  width:133px;
 }
 
 #back-button:hover {
@@ -283,26 +288,6 @@ html, body {
   flex: 1; /* This pushes the footer to the bottom */
 }
 
-/* Footer styling */
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding: 5px;
-  background: rgba(0, 0, 0, 0.8);
-  text-align: center;
-  color: white;
-  height: 30px;
-}
-
-/* Designer Name */
-footer .designer {
-  font-weight: bold;
-  color: #ff914d;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px; /* Space between name and WhatsApp icon */
-}
 
 /* WhatsApp Icon */
 .whatsapp-button {
@@ -400,7 +385,7 @@ border-radius: 5px;
     padding: 5px 10px;
   font-size: 1rem;
 
-width:20vw;
+width:133px;
     
 
 }
@@ -412,10 +397,22 @@ p.cart{
   transform: scale(1.05);
 }
 .summary-container{
-  color:white;
-  padding:10px;
+   color: white;
+  padding: 10px;
+  display: flex;          /* 1. Stack children vertically */
+  flex-direction: column;
+  align-items: center;    /* 2. Center buttons horizontally */
+  gap: 10px; 
 }
-
+.summary-container button {
+  width: 100%;            /* 4. Make them all fill the same width */
+  max-width: 300px;       /* 5. Set a comfortable limit for all */
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+}
 
 
 
@@ -431,9 +428,9 @@ p.cart{
 
 
 .summary-container #whatsappBtn{
- position: sticky; /* Fixes the element to the viewport */
-    bottom: 50px;    /* 20 pixels from the bottom of the screen */
-    left: 20px;     /* 20 pixels from the right of the screen (adjust as needed) */
+ background-color: #25D366; /* WhatsApp green */
+  color: white;
+  z-index: 1000;  /* 20 pixels from the right of the screen (adjust as needed) */
     
     /* Optional styling */
     padding: 10px 20px;
@@ -444,6 +441,7 @@ p.cart{
     cursor: pointer;
     border-radius: 10px;
     font-size: 0.8rem;
+    width:50vw;
 
 }
  .summary-container #whatsappBtn:hover{
@@ -477,8 +475,34 @@ p.cart{
 
 #editButton { background-color: #4CAF50; color: white; }
 #resetButton { background-color: #f44336; color: white; }
+
+
+
+
+/* Footer styling */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  color: white;
+  height: 40px;
+}
+
+/* Designer Name */
+footer .designer {
+  font-weight: bold;
+  color: #ff914d;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px; /* Space between name and WhatsApp icon */
+}
+
+
  /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 690px) {
   h1 {
     font-size: 1.8rem;
     text-align: center;
@@ -491,29 +515,47 @@ p.cart{
     grid-template-columns: repeat(2, 1fr); /* Exactly 2 cards per row */
     gap: 10px; /* Adjusted for better spacing */
     padding: 10px;
+     /* Centers the entire grid container on the screen */
+    margin: 0 auto; 
+    max-width: 800px; /* Optional: limits width so cards don't get too wide */
+
+    /* Centers the columns within the container and adds even space around them */
+    justify-content: center; 
+    justify-items: center; 
+    
+    gap: 10px;
+    padding: 10px;
   }
   .categories{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+      display: grid;
+    /* Exactly 2 columns */
+    grid-template-columns: repeat(2, 1fr); 
+    
+    /* Centers the entire grid container on the screen */
+    margin: 0 auto; 
+    max-width: 800px; /* Optional: limits width so cards don't get too wide */
 
+    /* Centers the columns within the container and adds even space around them */
+    justify-content: center; 
+    justify-items: center; 
+    
+    gap: 10px;
+    padding: 10px;
   }
 
   /* Ensure Cards are Uniform */
   .category-card {
-      width: 100%;
-    max-width: 180px; /* Slightly reduced width */
-    height: 40px; /* Fixed height to keep all cards uniform */
+    width: 100%; /* Ensures cards fill their half of the grid */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Centers content inside the card */
+    text-align: center;
+    max-width: 180px; /* Slightly reduced width */
+    height: 40px; /* Fixed height to keep all cards uniform */
     text-align: center;
     background: #000;
     color: white;
     border-radius: 10px;
-    padding: 15px;
     align-content: center;
     justify-content: center;
     
@@ -561,22 +603,32 @@ width:20vw;}
   font-size: 1rem;
   padding: 5px 5px;
   width:20vw;
-  text-align: center;
+  text-align: center;}
 
-  /* Fix Footer Overlapping */
-  footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    text-align: center;
-  }
+
+
+  .summary-controls {
+    justify-content: center; /* Aligns buttons to the left */
 }
+
+/* Ensure the summary container allows the margin-top: auto to work */
+
+
+#editButton, #resetButton {
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    width: 90px;
+    height: 60px;
 }
+
+}
+
 
  /* Responsive Design */
-@media (max-width: 450px) {
+@media (max-width: 480px) {
   h1 {
     font-size: 1.6rem;
     text-align: center;
@@ -668,7 +720,7 @@ width:20vw;}
  
 .summary-controls {
     display: flex;
-    justify-content: flex-start; /* Aligns buttons to the left */
+    justify-content: center; /* Aligns buttons to the left */
     gap: 15px;                   /* Space between buttons */
     margin-top: auto;            /* Pushes container to the bottom of a flex parent */
     padding: 20px 0;
@@ -683,22 +735,90 @@ width:20vw;}
 }
 
 #editButton, #resetButton {
-    padding: 10px 20px;
+    padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
     border: none;
     font-weight: bold;
+    width: 90px;
+    height: 30px;
+    font-size: 0.6rem;
 }
 
-#editButton { background-color: #4CAF50; color: white; }
-#resetButton { background-color: #f44336; color: white; }
 
-  /* Fix Footer Overlapping */
-  footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    text-align: center;
+
+
+}
+@media (max-width: 300px){
+
+h1 {
+    font-size: 1.4rem;
   }
+
+
+  /* Fix Text Alignment and Spacing */
+  .category-card h3 {
+    font-size: 0.6rem;
+  }
+
+  .category-card p {
+    font-size: 0.6rem;
+  }
+
+  .category-card span {
+    font-size: 0.8rem;
+   
+  }
+
+
+  #proceed{
+  
+  font-size: 0.5em;
+  }
+  
+  #back-button {
+  font-size: 0.5rem;
+}
+ #category-title{
+  font-size: 0.8rem;
+ }
+ 
+.summary-controls {
+    gap: 10px;                   /* Space between buttons */
+    margin-top: auto;            /* Pushes container to the bottom of a flex parent */
+    padding: 10px 0;
+}
+
+/* Ensure the summary container allows the margin-top: auto to work */
+.summary-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh; /* Adjust based on your footer height */
+    p{
+      font-size: 0.7rem;
+    }
+    h2{
+      font-size: 0.9rem;
+    }
+}
+
+#editButton, #resetButton {
+    padding: 4px 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    height: 30px;
+    font-size: 0.5rem;
+    width:40%
+}
+.summary-container #whatsappBtn{
+    /* Optional styling */
+    padding: 10px 20px;
+    font-size: 0.7rem;
+    width:50vw;
+    height: 50px;
+
+}
+
 }
