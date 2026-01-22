@@ -93,16 +93,100 @@ desserts: [
  // Highlight Active Category
 const cartState = {}; 
 
+// 1. SHARED PROCEED LOGIC
+// This handles the math and switching to the summary page
+function handleProceed() {
+  const selectedItems = [];
+  let grandTotal = 0;
+
+  Object.keys(menuData).forEach(cat => {
+    menuData[cat].forEach(item => {
+      const qty = cartState[item.id] || 0;
+      if (qty > 0) {
+        // Remove non-numeric characters from price (like $) and calculate
+        const priceValue = parseFloat(item.price.replace(/[^0-9.-]+/g, ""));
+        const subtotal = priceValue * qty;
+        grandTotal += subtotal;
+        selectedItems.push({ ...item, qty, subtotal });
+      }
+    });
+  });
+
+  if (selectedItems.length === 0) return alert("Your cart is empty!");
+
+  // Hide the floating button when the summary is shown
+  const floatingBtn = document.getElementById('floatingProceed');
+  if (floatingBtn) floatingBtn.style.display = 'none';
+
+  renderSummaryPage(selectedItems, grandTotal);
+}
+
+// 2. UPDATE THE FLOATING COUNTER
+function updateTotalCounter() {
+  const total = Object.values(cartState).reduce((acc, qty) => acc + qty, 0);
+  const floatingBtn = document.getElementById('floatingProceed');
+  const totalQtySpan = document.getElementById('totalQty');
+
+  if (total > 0) {
+    if (totalQtySpan) totalQtySpan.textContent = total;
+    if (floatingBtn) floatingBtn.style.display = 'block';
+  } else {
+    if (floatingBtn) floatingBtn.style.display = 'none';
+  }
+}
+
+// 3. ATTACH LISTENERS
+function attachItemListeners() {
+  document.querySelectorAll('.item').forEach(itemDiv => {
+    const id = itemDiv.getAttribute('data-id');
+    const input = itemDiv.querySelector('.quantity');
+    const cartText = itemDiv.querySelector('.cart');
+
+    // Helper to update text in individual cards
+    const updateItemText = (val) => {
+      cartText.textContent = val > 0 ? `${val} item${val === 1 ? '' : 's'} in the cart` : "";
+    };
+
+    // Initial text update on page load/category switch
+    updateItemText(parseInt(input.value) || 0);
+
+    itemDiv.querySelector('.addQuantity').onclick = () => {
+      const newVal = (parseInt(input.value) || 0) + 1;
+      input.value = newVal;
+      cartState[id] = newVal;
+      updateItemText(newVal);
+      updateTotalCounter();
+    };
+
+    itemDiv.querySelector('.deleteQuantity').onclick = () => {
+      let val = (parseInt(input.value) || 0);
+      if (val > 0) {
+        const newVal = val - 1;
+        input.value = newVal;
+        cartState[id] = newVal;
+        updateItemText(newVal);
+        updateTotalCounter();
+      }
+    };
+  });
+
+  // Bind BOTH buttons to the shared handleProceed function
+  const proceedBtn = document.getElementById('proceed');
+  const floatingBtn = document.getElementById('floatingProceed');
+
+  if (proceedBtn) proceedBtn.onclick = handleProceed;
+  if (floatingBtn) floatingBtn.onclick = handleProceed;
+}
+
+// 4. SHOW CATEGORY PAGE
 function showCategoryPage(category) {
   homepage.classList.remove("active");
   categoryPage.classList.add("active");
 
   categoryTitle.textContent = category.toUpperCase();
-  // Keep the proceed button at the top
   itemsList.innerHTML = ``;
 
   menuData[category].forEach(item => {
-    // Check if we already have a saved quantity for this item
     const savedQty = cartState[item.id] || 0;
 
     itemsList.innerHTML += `
@@ -119,72 +203,14 @@ function showCategoryPage(category) {
           </div>
       </div>`;
   });
-   attachItemListeners();
-}
 
+  // Highlight active category
+  document.querySelectorAll(".category-card").forEach(card => card.classList.remove("active-category"));
+  const activeCard = document.querySelector(`[data-category="${category}"]`);
+  if (activeCard) activeCard.classList.add("active-category");
 
-
- // Add Active Class for Highlight Effect
-  document.querySelectorAll(".category-card").forEach(card => {
-      card.classList.remove("active-category");
-  });
-  document.querySelector(`[data-category="${category}"]`).classList.add("active-category");
-
-
-function attachItemListeners() {
-  document.querySelectorAll('.item').forEach(itemDiv => {
-    const id = itemDiv.getAttribute('data-id');
-    const input = itemDiv.querySelector('.quantity');
-    const cartText = itemDiv.querySelector('.cart'); // 1. Select the <p> element
-
-    // Re-attach increment
-    itemDiv.querySelector('.addQuantity').onclick = () => {
-      const newVal = (parseInt(input.value) || 0) + 1;
-      input.value = newVal;
-      cartState[id] = newVal;
-      
-      // 2. Update the text content
-      cartText.textContent = `${newVal} item${newVal === 1 ? '' : 's'} in the cart`;
-    };
-
-    // Re-attach decrement
-    itemDiv.querySelector('.deleteQuantity').onclick = () => {
-      let val = (parseInt(input.value) || 0);
-      if (val > 0) {
-        const newVal = val - 1;
-        input.value = newVal;
-        cartState[id] = newVal;
-        
-        // 3. Update the text content
-        cartText.textContent = `${newVal} item${newVal === 1 ? '' : 's'} in the cart`;
-      }
-    };
-  });
-
-
-  // CRITICAL: Re-bind the proceed button every time listeners are refreshed
-  const proceedBtn = document.getElementById('proceed');
-  if (proceedBtn) {
-    proceedBtn.onclick = () => {
-      const selectedItems = [];
-      let grandTotal = 0;
-
-      Object.keys(menuData).forEach(cat => {
-        menuData[cat].forEach(item => {
-          const qty = cartState[item.id] || 0;
-          if (qty > 0) {
-            const priceValue = parseFloat(item.price.replace(/[^0-9.-]+/g, ""));
-            const subtotal = priceValue * qty;
-            grandTotal += subtotal;
-            selectedItems.push({ ...item, qty, subtotal });
-          }
-        });
-      });
-
-      if (selectedItems.length === 0) return alert("Your cart is empty!");
-      renderSummaryPage(selectedItems, grandTotal);
-    };
-  }
+  attachItemListeners();
+  updateTotalCounter(); // Sync the floating button on page change
 }
 
 

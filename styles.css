@@ -91,7 +91,7 @@ h1 {
 /* Header */
 header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom:20px;
 }
 
 .brand {
@@ -116,6 +116,7 @@ header {
   /* Centers the cards horizontally within their grid cells */
   justify-items: center; 
 }
+
  #category-title{
   color:White;
  }
@@ -235,6 +236,32 @@ header {
 .item:hover h3,
 .item:hover p {
   color: #fff;
+}
+.items-list .item:last-child {
+    margin-bottom: 80px; /* Adjust this value as needed */
+}
+.floating-proceed-btn {
+  position: fixed;
+  bottom: 50px;
+  right:10px;
+  background-color: #25D366; /* WhatsApp Green */
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 2000;
+  cursor: pointer;
+  display: none; /* Hidden until items are added */
+  width: 250px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.floating-proceed-btn:active {
+  transform: translateX(-50%) scale(0.95); /* Click feedback */
+  background-color: #128C7E;
 }
 
 
@@ -592,6 +619,12 @@ footer .designer {
     font-weight: bold;
     color: #ffb400; /* Highlight price */
   }
+  .floating-proceed-btn{
+    padding:5px;
+    width:180px;
+    left:10px;
+    font-size: 0.8rem;
+  }
   #proceed{
   
   padding: 5px 10px;
@@ -698,7 +731,11 @@ width:20vw;}
     font-weight: bold;
     color: #ffb400; /* Highlight price */
   }
-
+.floating-proceed-btn{
+    width:130px;
+    left:10px;
+    font-size: 0.7rem;
+  }
 
   #proceed{
   
@@ -801,7 +838,12 @@ h1 {
       font-size: 0.9rem;
     }
 }
-
+.floating-proceed-btn{
+    width:140px;
+    left:10px;
+    font-size: 0.8rem;
+    height: 40px;
+  }
 #editButton, #resetButton {
     padding: 4px 5px;
     cursor: pointer;
