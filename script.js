@@ -110,6 +110,7 @@ function showCategoryPage(category) {
           <img src="${item.image}" alt="${item.name}">
           <h3>${item.name}</h3>
           <p class="description">${item.description}</p>
+          <p class="cart"></p>
           <p class="price">${item.price}</p>
           <div class="addingDiv">
             <button class="deleteQuantity">-</button>
@@ -122,6 +123,7 @@ function showCategoryPage(category) {
 }
 
 
+
  // Add Active Class for Highlight Effect
   document.querySelectorAll(".category-card").forEach(card => {
       card.classList.remove("active-category");
@@ -130,27 +132,35 @@ function showCategoryPage(category) {
 
 
 function attachItemListeners() {
-  // Select the items currently visible in the DOM
   document.querySelectorAll('.item').forEach(itemDiv => {
     const id = itemDiv.getAttribute('data-id');
     const input = itemDiv.querySelector('.quantity');
+    const cartText = itemDiv.querySelector('.cart'); // 1. Select the <p> element
 
-    // Re-attach increment/decrement
+    // Re-attach increment
     itemDiv.querySelector('.addQuantity').onclick = () => {
       const newVal = (parseInt(input.value) || 0) + 1;
       input.value = newVal;
       cartState[id] = newVal;
+      
+      // 2. Update the text content
+      cartText.textContent = `${newVal} item${newVal === 1 ? '' : 's'} in the cart`;
     };
 
+    // Re-attach decrement
     itemDiv.querySelector('.deleteQuantity').onclick = () => {
       let val = (parseInt(input.value) || 0);
       if (val > 0) {
         const newVal = val - 1;
         input.value = newVal;
         cartState[id] = newVal;
+        
+        // 3. Update the text content
+        cartText.textContent = `${newVal} item${newVal === 1 ? '' : 's'} in the cart`;
       }
     };
   });
+
 
   // CRITICAL: Re-bind the proceed button every time listeners are refreshed
   const proceedBtn = document.getElementById('proceed');
@@ -276,8 +286,20 @@ function sendWhatsAppMessage(lat, lng, currentTotal, targetWindow) {
 
     
  
+//window.onbeforeunload = function() {
+ //   sessionStorage.setItem("sidebar-scroll", window.scrollY);
+//};
+//window.onload = function() {
+ //   const scrollPos = sessionStorage.getItem("sidebar-scroll");
+////    if (scrollPos) window.scrollTo(0, parseInt(scrollPos));
+//};
 
- 
+ document.addEventListener('touchmove', function(e) {
+  // Check if the user is at the very top of the page
+  if (window.scrollY === 0) {
+    // Note: {passive: false} is required for preventDefault() to work in modern browsers
+  }
+}, { passive: false });
 
 // Apply Fade-in Effect
 document.addEventListener("DOMContentLoaded", () => {
