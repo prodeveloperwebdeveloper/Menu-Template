@@ -244,7 +244,7 @@ header {
   position: fixed;
   bottom: 50px;
   right:10px;
-  background-color: #25D366; /* WhatsApp Green */
+  background-color: darkblue; /* WhatsApp Green */
   color: white;
   border: none;
   padding: 15px 30px;
@@ -732,7 +732,7 @@ width:20vw;}
     color: #ffb400; /* Highlight price */
   }
 .floating-proceed-btn{
-    width:130px;
+    width:150px;
     left:10px;
     font-size: 0.7rem;
   }
@@ -839,7 +839,7 @@ h1 {
     }
 }
 .floating-proceed-btn{
-    width:140px;
+    width:170px;
     left:10px;
     font-size: 0.8rem;
     height: 40px;
