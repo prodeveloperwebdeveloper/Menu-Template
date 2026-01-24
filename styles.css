@@ -720,13 +720,7 @@ footer .designer {
   }
 
  
- .items-list {
-    display: grid;
-    grid-template-columns: 1fr; 
-    padding: 10px;
-    place-items: center;
-    padding-bottom: 80px;
-  }
+ 
   .categories{
     display: flex;
     flex-direction: column;
@@ -788,6 +782,17 @@ footer .designer {
     font-weight: bold;
     color: #ffb400; /* Highlight price */
   }
+  .items-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    padding: 10px;
+    place-items: center;
+    padding-bottom: 80px;
+  }
+  .item {
+    padding:5px;
+  height: 300px; /* Auto height to fit content */
+}
 .floating-proceed-btn{
     width:160px;
     left:10px;
@@ -844,6 +849,22 @@ width:20vw;}
 
 }
 @media (max-width: 300px){
+  #proceed{
+  
+  font-size: 0.4em;
+  top:5px;
+  padding:2px;
+  right:5px;
+  }
+  
+  #back-button {
+  font-size: 0.4em;
+  top:5px;
+  padding:2px;
+  left:5px;
+}
+}
+@media (max-width: 280px){
 .page{
   padding:5px
 }
@@ -879,7 +900,10 @@ header div .language-switcher{
   #category-title{
 padding-top:15px
   }
-
+.items-list {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 
   #proceed{
   
