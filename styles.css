@@ -26,6 +26,16 @@ body {
 .main-content {
     flex: 1;
 }
+.language-switcher{
+width:100;
+}
+.language-switcher button{
+  background-color:#ff914d;
+  color:white;
+  border: 1px solid black;
+  width:80px;
+  margin:5px;
+}
 
 /* Dark Overlay for Better Readability */
 
@@ -105,10 +115,11 @@ header {
 .categories {
    display: grid;
   grid-template-columns: repeat(3, 1fr); 
-  gap: 20px;
-  padding: 20px;
+  gap: 10px;
+  padding: 5px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
+  height: 200px;
   
   /* Centers the grid container itself */
   margin: 0 auto; 
@@ -132,13 +143,14 @@ header {
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   overflow: hidden; /* Prevents image from overflowing */
   width: 180px; /* Adjust as needed */
+  height: 100px;
 }
 
 /* Hover Effect */
 .category-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-  background: rgba(255, 255, 255, 0.3);
+  background-color:#ff914d
 
 }
 
@@ -168,18 +180,28 @@ header {
 
 
 /* Items List */
-.items-list {
+
+
+  .items-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
-  padding-bottom: 50px; /* Ensures space above footer */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  /* Centers content inside the grid cells */
+  justify-items: center; 
+  /* THIS ADDS THE SPACE AT THE BOTTOM */
+  padding-bottom: 100px; 
 }
+
 
 /* Item Card */
 .item {
+  width: 100%;
+  max-width: 280px; /* Prevents cards from getting too large on big screens */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Centers image and text inside the card */
   text-align: center;
   background: #000;
   color: white;
@@ -281,14 +303,42 @@ header {
   z-index: 100;
   padding: 5px 10px;
   font-size: 1rem;
-  width:133px;
+  width:200px;
+  height: 40px;
 }
 
 #back-button:hover {
   background: linear-gradient(90deg, #ff6b6b, #ff9800);
   transform: scale(1.05);
 }
+#proceed{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(90deg, #ff9800, #ff6b6b);
+  border: none;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 100;
+  padding: 5px 10px;
+  font-size: 1rem;
+  width:200px;
+  height: 40px;
 
+}
+p.cart{
+  color:var(--hover-color)
+}
+#proceed:hover{
+  background: linear-gradient(90deg, #ff6b6b, #ff9800);
+  transform: scale(1.05);
+}
 /* Ensure body takes full height */
 html, body {
   height: 100%;
@@ -353,6 +403,7 @@ html, body {
 .addingDiv{
   display: flex;
   align-items: center;
+  text-align: center;
 }
 .quantity{
 width: 40px;
@@ -392,35 +443,7 @@ border-radius: 5px;
 .deleteQuantity:hover, .addQuantity:hover{
   background-color: var(--hover-color);
 }
-#proceed{
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(90deg, #ff9800, #ff6b6b);
-  border: none;
-  font-size: 1.2em;
-  padding: 10px 20px;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-    z-index: 100;
-    padding: 5px 10px;
-  font-size: 1rem;
 
-width:133px;
-    
-
-}
-p.cart{
-  color:var(--hover-color)
-}
-#proceed:hover{
-  background: linear-gradient(90deg, #ff6b6b, #ff9800);
-  transform: scale(1.05);
-}
 .summary-container{
    color: white;
   padding: 10px;
@@ -453,9 +476,9 @@ p.cart{
 
 
 .summary-container #whatsappBtn{
- background-color: #25D366; /* WhatsApp green */
-  color: white;
-  z-index: 1000;  /* 20 pixels from the right of the screen (adjust as needed) */
+    background-color: #25D366; /* WhatsApp green */
+    color: white;
+    z-index: 1000;  /* 20 pixels from the right of the screen (adjust as needed) */
     
     /* Optional styling */
     padding: 10px 20px;
@@ -467,6 +490,7 @@ p.cart{
     border-radius: 10px;
     font-size: 0.8rem;
     width:50vw;
+    margin-bottom: 20px;
 
 }
  .summary-container #whatsappBtn:hover{
@@ -514,6 +538,7 @@ footer {
   text-align: center;
   color: white;
   height: 40px;
+  margin-top: 50px;
 }
 
 /* Designer Name */
@@ -550,6 +575,7 @@ footer .designer {
     
     gap: 10px;
     padding: 10px;
+    padding-bottom: 80px; 
   }
   .categories{
       display: grid;
@@ -627,13 +653,14 @@ footer .designer {
   }
   #proceed{
   
-  padding: 5px 10px;
-  font-size: 1rem;
-
-width:20vw;}
+   font-size: 0.8rem;
+  padding: 5px 5px;
+  width:20vw;
+  text-align: center;
+  }
   
   #back-button {
-  font-size: 1rem;
+  font-size: 0.8rem;
   padding: 5px 5px;
   width:20vw;
   text-align: center;}
@@ -662,7 +689,7 @@ width:20vw;}
 
  /* Responsive Design */
 @media (max-width: 480px) {
-  h1 {
+  h2 {
     font-size: 1.6rem;
     text-align: center;
   }
@@ -673,6 +700,7 @@ width:20vw;}
     grid-template-columns: 1fr; 
     padding: 10px;
     place-items: center;
+    padding-bottom: 80px;
   }
   .categories{
     display: flex;
@@ -681,6 +709,7 @@ width:20vw;}
     align-content: center;
     align-items: center;
     text-align: center;
+    padding-bottom: 40px;
 
   }
 
@@ -705,9 +734,7 @@ width:20vw;}
   .items-list .item:nth-last-child( 2) {
   margin-bottom:2.5px ;
 }
- .items-list .item:last-child {
-  margin-bottom:100px ;
-}
+ 
   /* Fix Image Sizing */
   .category-card img {
     width: 100%; /* Ensures it fits the card */
@@ -792,12 +819,25 @@ width:20vw;}
 
 }
 @media (max-width: 300px){
-
+.page{
+  padding:5px
+}
 h1 {
     font-size: 1.4rem;
   }
 
-
+.brand{
+  font-size: 1.2rem;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+header div .language-switcher{
+  padding: 0px;
+  margin-top: 0px;
+}
+.categories{
+  margin-bottom: 50px;
+}
   /* Fix Text Alignment and Spacing */
   .category-card h3 {
     font-size: 0.6rem;
@@ -811,15 +851,27 @@ h1 {
     font-size: 0.8rem;
    
   }
+  #category-title{
+padding-top:15px
+  }
 
 
   #proceed{
   
   font-size: 0.5em;
+  top:5px;
+  padding:2px;
+  right:5px;
   }
   
   #back-button {
-  font-size: 0.5rem;
+  font-size: 0.5em;
+  top:5px;
+  padding:2px;
+  left:5px;
+}
+.items-list{
+  margin-top: 10px;
 }
  #category-title{
   font-size: 0.8rem;
