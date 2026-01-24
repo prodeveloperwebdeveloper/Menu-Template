@@ -284,15 +284,27 @@ function renderSummaryPage(items, total) {
   container.innerHTML = `<h1>${translations[currentLang].summary}</h1>`;
 
   // 3. Loop items using Flexbox to handle "Start vs End" positioning
-  items.forEach(item => {
-    container.innerHTML += `
-            <div class="summary-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0;">
-                <strong style="flex: 1;">${item.name[currentLang]}</strong>
-                <span dir="ltr" style="font-weight: bold; margin-${isAr ? 'right' : 'left'}: 15px;">
-                    ${item.qty} x ${item.price} = $${item.subtotal.toFixed(2)}
-                </span>
-            </div>`;
-  });
+ let itemsHtml = "";
+
+items.forEach(item => {
+    // Determine spacing side based on language
+    const marginSide = isAr ? 'right' : 'left';
+    
+    itemsHtml += `
+        <div class="summary-item" style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #eee; padding: 12px 0; width: 100%;">
+            <strong style="flex: 1; text-align: ${isAr ? 'right' : 'left'}; font-size: 1.1rem;">
+                ${item.name[currentLang]}
+            </strong>
+            <span dir="ltr" style="font-weight: bold;margin-${marginSide}: 15px; white-space: nowrap; font-family: monospace; color: white;">
+                ${item.qty} x ${item.price} = $${item.subtotal.toFixed(2)}
+            </span>
+        </div>`;
+});
+
+// 2. Inject it once into the container
+container.innerHTML = `<h1>${translations[currentLang].summary}</h1>` + itemsHtml;
+
+
 
   // 4. Grand Total Row
   container.innerHTML += `
