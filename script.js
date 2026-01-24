@@ -382,9 +382,28 @@ function sendWhatsAppOrder(items, currentTotal) {
 
 // Helper to open the final link
 function finishWhatsApp(text, phone) {
-  const encodedText = encodeURIComponent(text);
-  const link = `https://wa.me/${phone}?text=${encodedText}`;
-  window.open(link, '_blank');
+    const encodedText = encodeURIComponent(text);
+    
+    // Check if the user is on a mobile device
+    const isMobile = /iPhone|Android/i.test(navigator.userAgent);
+    
+    // Mobile uses whatsapp:// protocol; Web uses wa.me/ universal links
+    const link = isMobile 
+        ? `whatsapp://send?phone=${phone}&text=${encodedText}`
+        : `https://wa.me/${phone}?text=${encodedText}`;
+
+    // USE window.location.href for mobile compatibility
+    window.location.href = link;
+
+    // Show Thank You Popup
+    const popup = document.getElementById('thank-you-popup');
+    if (popup) {
+        const trans = translations[currentLang];
+        document.getElementById('thanks-title').innerText = trans.thanksTitle;
+        document.getElementById('thanks-msg').innerText = trans.thanksMsg;
+        document.getElementById('thanks-btn').innerText = trans.ok;
+        popup.style.display = 'block';
+    }
 }
 
 
