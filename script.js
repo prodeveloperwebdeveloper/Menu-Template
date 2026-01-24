@@ -360,17 +360,26 @@ function sendWhatsAppOrder(items, currentTotal) {
   // Header based on language
   let whatsappText = isAr ? "*طلب جديد:*\n" : "*New Order:*\n";
 
-  // Build item list from the passed 'items' array
+  // Build item list
   items.forEach(item => {
     const itemName = item.name[currentLang];
-    whatsappText += `• ${itemName} (${item.qty} x ${item.price})\n`;
+    if (isAr) {
+      // \u202B forces the whole line to behave as Right-To-Left
+      whatsappText += `\u202B• ${itemName} (${item.qty} x ${item.price})\u202C\n`;
+    } else {
+      whatsappText += `• ${itemName} (${item.qty} x ${item.price})\n`;
+    }
   });
 
   // Grand Total
   const totalLabel = isAr ? "المبلغ الإجمالي" : "Grand Total";
-  whatsappText += `\n*${totalLabel}: $${currentTotal.toFixed(2)}*`;
+  if (isAr) {
+    whatsappText += `\n\u202B*${totalLabel}: $${currentTotal.toFixed(2)}*\u202C`;
+  } else {
+    whatsappText += `\n*${totalLabel}: $${currentTotal.toFixed(2)}*`;
+  }
 
-  // Handle Location (Optional: requests browser permission)
+  // Handle Location
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -381,7 +390,6 @@ function sendWhatsAppOrder(items, currentTotal) {
         finishWhatsApp(whatsappText, phoneNumber);
       },
       () => {
-        // If user denies location
         const locError = isAr ? "\n\nالموقع: لم يتم توفيره" : "\n\nLocation: Not provided";
         whatsappText += locError;
         finishWhatsApp(whatsappText, phoneNumber);
