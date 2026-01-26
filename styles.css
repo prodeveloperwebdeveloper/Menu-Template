@@ -1,0 +1,1007 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Background Image Fix */
+body {
+    font-family: 'Playfair Display', serif;
+    background: url('https://res.cloudinary.com/dacpbywfp/image/upload/v1742058337/bc_xm1ftg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+:root {
+  --main-color: #272525; /* Global variable for the main color */
+  --hover-color:#3cab05;
+  --font-stack: Helvetica, Arial, sans-serif; /* Global variable for font family */
+}
+
+/* Fix Content Wrapping */
+.main-content {
+    flex: 1;
+}
+.language-switcher{
+width:100;
+}
+.language-switcher button{
+  background-color:#ff914d;
+  color:white;
+  border: 1px solid black;
+  width:80px;
+  margin:5px;
+}
+
+/* Dark Overlay for Better Readability */
+
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+
+
+
+/* Title Styling */
+h1 {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 5px rgba(246, 245, 245, 0.5);
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ff9800, #ff6b6b);
+  
+  /* Gradient text effect */
+  background-clip: text;
+  -webkit-background-clip: text; /* For Safari and older Chrome */
+  color: transparent; /* Fallback for non-WebKit browsers */
+  -webkit-text-fill-color: transparent; /* For Safari and older Chrome */
+  
+  animation: fadeInDown 1s ease;
+  
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page Transitions */
+.page {
+  display: none;
+  padding: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom:20px;
+}
+
+.brand {
+  color: #ff9800;
+  font-weight: 700;
+  font-size: 2rem;
+  text-shadow: 2px 2px 5px rgba(251, 248, 248, 0.5);
+}
+
+/* Category Cards */
+.categories {
+   display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 10px;
+  padding: 5px;
+  width: 100%;
+  max-width: 1000px;
+  height: 200px;
+  
+  /* Centers the grid container itself */
+  margin: 0 auto; 
+  
+  /* Centers the cards horizontally within their grid cells */
+  justify-items: center; 
+}
+
+ #category-title{
+  color:White;
+ }
+
+.category-card {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  overflow: hidden; /* Prevents image from overflowing */
+  width: 180px; /* Adjust as needed */
+  height: 100px;
+}
+
+/* Hover Effect */
+.category-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  background-color:#ff914d
+
+}
+
+/* Improved Image Placement */
+.category-card img {
+  width: 100%;
+  height: 120px; /* Adjust height for a perfect fit */
+  object-fit: cover; /* Ensures image covers the card without distortion */
+  border-radius: 10px;
+  margin-bottom: 15px;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+/* Title Styling */
+.category-card h3 {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Emoji Styling */
+.category-card .emoji {
+  font-size: 1.8rem;
+}
+
+#notesBtns {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  z-index: 2500;
+  display: none; /* Controlled by JS */
+  justify-content: space-between; /* Desktop: side-by-side */
+  padding: 0 15px;
+  pointer-events: none; 
+}
+
+.notesBtn, #floatingProceed {
+  pointer-events: auto;
+  background-color: darkblue;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  width: 200px; /* Standard width for desktop */
+  transition: transform 0.2s, background-color 0.2s;
+  font-size: 1em;
+  height: 40px;
+}
+
+.notesBtn:active, #floatingProceed:active {
+  transform: scale(0.95);
+  background-color: #128C7E;
+}
+
+
+
+/* Items List */
+
+
+  .items-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  /* Centers content inside the grid cells */
+  justify-items: center; 
+  /* THIS ADDS THE SPACE AT THE BOTTOM */
+  padding-bottom: 100px; 
+}
+
+
+/* Item Card */
+.item {
+  width: 100%;
+  max-width: 280px; /* Prevents cards from getting too large on big screens */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers image and text inside the card */
+  text-align: center;
+  background: #000;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%; /* Make sure it fills the container */
+  max-width: 200px; /* Prevents oversized cards */
+  height: auto; /* Auto height to fit content */
+}
+
+/* Hover Effect */
+.item:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  background: rgba(4, 200, 239, 0.315);
+  p.cart{
+  color:var(--hover-color)
+}
+}
+
+/* Item Image */
+
+.item img {
+  width: 100%; /* Image fills the card */
+  height: 150px; /* Fixed height for uniformity */
+  object-fit: cover; /* Ensures image scales properly */
+  border-radius: 10px;
+}
+
+/* Title */
+.item h3 {
+  font-size: 1.3em;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Description */
+.item p {
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.8); /* Make text more readable */
+}
+
+/* Price */
+.item .price {
+  font-weight: bold;
+  color: #ff9800;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Fix Text Visibility on Hover */
+.item:hover h3,
+.item:hover p {
+  color: #fff;
+}
+#thank-you-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.3);
+  z-index: 10001;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+}
+
+#thank-you-popup h2 { color: #28a745; }
+#thank-you-popup button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #3949AB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+
+/* Back Button Styling */
+#back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(90deg, #ff9800, #ff6b6b);
+  border: none;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 100;
+  padding: 5px 10px;
+  font-size: 1rem;
+  width:200px;
+  height: 40px;
+}
+
+#back-button:hover {
+  background: linear-gradient(90deg, #ff6b6b, #ff9800);
+  transform: scale(1.05);
+}
+#proceed{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(90deg, #ff9800, #ff6b6b);
+  border: none;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 100;
+  padding: 5px 10px;
+  font-size: 1rem;
+  width:200px;
+  height: 40px;
+
+}
+p.cart{
+  color:var(--hover-color)
+}
+#proceed:hover{
+  background: linear-gradient(90deg, #ff6b6b, #ff9800);
+  transform: scale(1.05);
+}
+/* Ensure body takes full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  
+  /* Stops the "bounce" effect and the pull-to-refresh gesture */
+  overscroll-behavior-y: none;
+
+}
+.addingDiv{
+  margin-top: auto;       /* Safety net to ensure it stays at the very bottom */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Push content to fill space and keep footer at the bottom */
+.main-content {
+  flex: 1; /* This pushes the footer to the bottom */
+}
+
+
+/* WhatsApp Icon */
+.whatsapp-button {
+  /* Basic Button Styling */
+  background-color: #25D366; /* WhatsApp Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex; /* Aligns icon and text */
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.whatsapp-button:hover {
+  background-color: #128C7E;
+}
+
+/* Style for the icon inside the button */
+
+
+
+/* Adding titems to oreder part */
+.addItem{
+  border-radius: 10px;
+  background-color: var(--main-color);
+  color:white;
+  margin-bottom: 5px;
+  font-family: var(--font-stack);
+}
+.addItem:hover{
+  background-color:var(--hover-color);font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.addingDiv{
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.quantity{
+width: 40px;
+height: 30px;
+margin:3px;
+border: 2px solid #ff0000;
+padding: 3px;
+text-align: center;
+color: #ff0000;
+border-radius: 5px;
+}
+.quantity::placeholder {
+  color: #ff0000; /* Change to your desired color */
+  opacity: 1;    /* Fixes Firefox's default lower opacity */
+  text-align: center;
+}
+.deleteQuantity{
+width: 30px;
+height: 3opx;
+text-align: center;
+padding: 1px;
+margin-right: 5px;
+background-color: var(--main-color);
+color: white;
+border-radius: 5px;
+}
+.addQuantity{
+width: 30px;
+height: 3opx;
+text-align: center;
+padding: 1px;
+margin-left: 5px;
+background-color: var(--main-color);
+color: white;
+border-radius: 5px;
+}
+.deleteQuantity:hover, .addQuantity:hover{
+  background-color: var(--hover-color);
+}
+
+.summary-container{
+   color: white;
+  padding: 10px;
+  display: flex;          /* 1. Stack children vertically */
+  flex-direction: column;
+  align-items: center;    /* 2. Center buttons horizontally */
+  gap: 10px; 
+}
+.summary-container button {
+  width: 100%;            /* 4. Make them all fill the same width */
+  max-width: 300px;       /* 5. Set a comfortable limit for all */
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+ .summary-container #resetButton:hover{
+  background-color: darkred;
+  color:white;
+}
+.summary-container #editButton:hover{
+  background-color: var(--hover-color);
+  color:white;
+}
+
+
+
+.summary-container #whatsappBtn{
+    background-color: #25D366; /* WhatsApp green */
+    color: white;
+    z-index: 1000;  /* 20 pixels from the right of the screen (adjust as needed) */
+    
+    /* Optional styling */
+    padding: 10px 20px;
+    background-color: var(--hover-color);
+    color: white;
+    border: none;
+    z-index: 1000; /* Ensures the button is above other content */
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    width:50vw;
+    margin-bottom: 20px;
+
+}
+ .summary-container #whatsappBtn:hover{
+  background-color: #00c01a;
+  color:white;
+}
+
+.summary-controls {
+    display: flex;
+    justify-content: flex-start; /* Aligns buttons to the left */
+    gap: 15px;                   /* Space between buttons */
+    margin-top: auto;            /* Pushes container to the bottom of a flex parent */
+    padding: 20px 0;
+    border-top: 1px solid #ddd;  /* Optional: visual separator from items */
+}
+
+/* Ensure the summary container allows the margin-top: auto to work */
+.summary-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh; /* Adjust based on your footer height */
+}
+
+#editButton, #resetButton {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+}
+
+#editButton { background-color: #4CAF50; color: white; }
+#resetButton { background-color: #f44336; color: white; }
+
+
+
+
+/* Footer styling */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  color: white;
+  height: 40px;
+  margin-top: 50px;
+}
+
+/* Designer Name */
+footer .designer {
+  font-weight: bold;
+  color: #ff914d;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px; /* Space between name and WhatsApp icon */
+}
+
+
+ /* Responsive Design */
+@media (max-width: 690px) {
+  h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  /* Fix Grid for 2 Cards per Row */
+ .items-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Exactly 2 cards per row */
+    gap: 10px; /* Adjusted for better spacing */
+    padding: 10px;
+     /* Centers the entire grid container on the screen */
+    margin: 0 auto; 
+    max-width: 800px; /* Optional: limits width so cards don't get too wide */
+
+    /* Centers the columns within the container and adds even space around them */
+    justify-content: center; 
+    justify-items: center; 
+    
+    gap: 10px;
+    padding: 10px;
+    padding-bottom: 80px; 
+  }
+  .categories{
+      display: grid;
+    /* Exactly 2 columns */
+    grid-template-columns: repeat(2, 1fr); 
+    
+    /* Centers the entire grid container on the screen */
+    margin: 0 auto; 
+    max-width: 800px; /* Optional: limits width so cards don't get too wide */
+
+    /* Centers the columns within the container and adds even space around them */
+    justify-content: center; 
+    justify-items: center; 
+    
+    gap: 10px;
+    padding: 10px;
+  }
+
+  /* Ensure Cards are Uniform */
+  .category-card {
+    width: 100%; /* Ensures cards fill their half of the grid */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content inside the card */
+    text-align: center;
+    max-width: 180px; /* Slightly reduced width */
+    height: 40px; /* Fixed height to keep all cards uniform */
+    text-align: center;
+    background: #000;
+    color: white;
+    border-radius: 10px;
+    align-content: center;
+    justify-content: center;
+    
+  }
+
+  /* Fix Image Sizing */
+  .category-card img {
+    width: 100%; /* Ensures it fits the card */
+    height: 100px; /* Reduced height to prevent stretching */
+    object-fit: cover; /* Prevents distortion */
+    border-radius: 10px;
+  }
+
+  /* Fix Text Alignment and Spacing */
+  .category-card h3 {
+    display: flex;
+    font-size: 0.8rem;
+    margin: 5px 0;
+    text-align: center;
+    justify-self: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+  }
+
+  .category-card p {
+    font-size: 0.8rem;
+    margin: 5px 0;
+  }
+
+  .category-card span {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffb400; /* Highlight price */
+  }
+  #floatingProceed{
+    padding:5px;
+    width:180px;
+    font-size: 0.8rem;
+    height: 30px;
+    justify-content: center;
+  }
+  #notes{
+    padding:5px;
+    width:180px;
+    font-size: 0.8rem;
+        height: 30px;
+
+  }
+  #proceed{
+  
+   font-size: 0.8rem;
+  padding: 5px 5px;
+  width:20vw;
+  text-align: center;
+  }
+  
+  #back-button {
+  font-size: 0.8rem;
+  padding: 5px 5px;
+  width:20vw;
+  text-align: center;}
+
+
+
+  .summary-controls {
+    justify-content: center; /* Aligns buttons to the left */
+}
+
+/* Ensure the summary container allows the margin-top: auto to work */
+
+
+#editButton, #resetButton {
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    width: 90px;
+    height: 60px;
+}
+
+}
+
+
+ /* Responsive Design */
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+ 
+ 
+  .categories{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 40px;
+
+  }
+
+  /* Ensure Cards are Uniform */
+  .category-card {
+    width: 100%;
+    max-width: 160px; /* Slightly reduced width */
+    height: 40px; /* Fixed height to keep all cards uniform */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #000;
+    color: white;
+    border-radius: 10px;
+    justify-content: center; /* Centers content horizontally */
+    align-content: center;
+    margin: 0;
+    padding: 15px;
+   
+  }
+ 
+ 
+  /* Fix Image Sizing */
+  .category-card img {
+    width: 100%; /* Ensures it fits the card */
+    height: 100px; /* Reduced height to prevent stretching */
+    object-fit: cover; /* Prevents distortion */
+    border-radius: 10px;
+  }
+
+  /* Fix Text Alignment and Spacing */
+  .category-card h3 {
+    display: flex;
+    font-size: 0.7rem;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin: 0;
+  }
+
+  .category-card p {
+    font-size: 0.8rem;
+  }
+
+  .category-card span {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffb400; /* Highlight price */
+  }
+  .items-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    padding: 10px;
+    place-items: center;
+    padding-bottom: 120px;
+  }
+  .item {
+    padding:5px;
+  height: 350px; /* Auto height to fit content */
+}
+ #notesBtns {
+    flex-direction: column !important;/* Stacks buttons vertically */
+    align-items: center;    /* Centers them horizontally */
+    gap: 10px;              /* Space between the two buttons */
+    bottom: 50px;           /* Adjust distance from bottom */
+  }
+
+  #notes, #floatingProceed {
+    width: 90%;             /* Buttons take up most of the screen width */
+    max-width: 350px;
+    padding: 5px;
+    font-size: 0.8rem;
+  }
+
+  /* Optional: Move the proceed button to the bottom of the stack */
+  #floatingProceed {
+    order: 2; 
+  }
+  .notesBtn {
+    order: 1;
+  }
+  #proceed{
+  
+  font-size: 0.6em;
+  padding: 5px 10px;
+
+width:20vw;}
+  
+  #back-button {
+  
+  font-size: 0.6em;
+  padding: 5px 5px;
+  width:20vw;
+  text-align: center;
+}
+ #category-title{
+  font-size: 1rem;
+ }
+ 
+.summary-controls {
+    display: flex;
+    justify-content: center; /* Aligns buttons to the left */
+    gap: 15px;                   /* Space between buttons */
+    margin-top: auto;            /* Pushes container to the bottom of a flex parent */
+    padding: 20px 0;
+    border-top: 1px solid #ddd;  /* Optional: visual separator from items */
+}
+
+/* Ensure the summary container allows the margin-top: auto to work */
+.summary-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh; /* Adjust based on your footer height */
+}
+
+#editButton, #resetButton {
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    width: 90px;
+    height: 30px;
+    font-size: 0.6rem;
+}
+
+
+
+
+}
+@media (max-width: 300px){
+  #proceed{
+  
+  font-size: 0.4em;
+  top:5px;
+  padding:2px;
+  right:5px;
+  }
+  
+  #back-button {
+  font-size: 0.4em;
+  top:5px;
+  padding:2px;
+  left:5px;
+}
+}
+@media (max-width: 280px){
+.page{
+  padding:5px
+}
+h1 {
+    font-size: 1.4rem;
+  }
+
+.brand{
+  font-size: 1.2rem;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+header div .language-switcher{
+  padding: 0px;
+  margin-top: 0px;
+}
+.categories{
+  margin-bottom: 50px;
+}
+  /* Fix Text Alignment and Spacing */
+  .category-card h3 {
+    font-size: 0.6rem;
+  }
+
+  .category-card p {
+    font-size: 0.6rem;
+  }
+
+  .category-card span {
+    font-size: 0.8rem;
+   
+  }
+  #category-title{
+padding-top:15px
+  }
+.items-list {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #proceed{
+  
+  font-size: 0.5em;
+  top:5px;
+  padding:2px;
+  right:5px;
+  }
+  
+  #back-button {
+  font-size: 0.5em;
+  top:5px;
+  padding:2px;
+  left:5px;
+}
+.items-list{
+  margin-top: 10px;
+}
+ #category-title{
+  font-size: 0.8rem;
+ }
+ 
+.summary-controls {
+    gap: 10px;                   /* Space between buttons */
+    margin-top: auto;            /* Pushes container to the bottom of a flex parent */
+    padding: 10px 0;
+}
+
+/* Ensure the summary container allows the margin-top: auto to work */
+.summary-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh; /* Adjust based on your footer height */
+    p{
+      font-size: 0.7rem;
+    }
+    h2{
+      font-size: 0.9rem;
+    }
+}
+.floating-proceed-btn{
+    width:180px;
+    left:10px;
+    font-size: 0.8rem;
+    height: 40px;
+  }
+  .notesBtn{
+    width:180px;
+    right:10px;
+    font-size: 0.8rem;
+    height: 40px;
+  }
+#editButton, #resetButton {
+    padding: 4px 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    height: 30px;
+    font-size: 0.5rem;
+    width:40%
+}
+.summary-container #whatsappBtn{
+    /* Optional styling */
+    padding: 10px 20px;
+    font-size: 0.7rem;
+    width:50vw;
+    height: 50px;
+
+}
+
+}
