@@ -808,7 +808,7 @@ footer .designer {
   height: 350px; /* Auto height to fit content */
 }
  #notesBtns {
-    flex-direction: column; /* Stacks buttons vertically */
+    flex-direction: column !important;/* Stacks buttons vertically */
     align-items: center;    /* Centers them horizontally */
     gap: 10px;              /* Space between the two buttons */
     bottom: 50px;           /* Adjust distance from bottom */
