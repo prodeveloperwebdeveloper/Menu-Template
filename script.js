@@ -119,6 +119,7 @@ const categoryPage = document.getElementById("category-page");
 const backButton = document.getElementById("back-button");
 const categoryTitle = document.getElementById("category-title");
 const itemsList = document.querySelector(".items-list");
+let orderNote = ""; 
 
 
 
@@ -128,6 +129,7 @@ function setLanguage(lang) {
   
   // Set global direction
   document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  
   
   // Update Header/Static text using your translations object
   const brandEl = document.querySelector('.brand');
@@ -229,20 +231,44 @@ function attachItemListeners() {
 
 function updateTotalCounter() {
   const total = Object.values(cartState).reduce((acc, qty) => acc + qty, 0);
-  const floatingBtn = document.getElementById('floatingProceed');
-  const totalQtySpan = document.getElementById('totalQty');
+  const container = document.getElementById('notesBtns');
+  const floatBtn = document.getElementById('floatingProceed');
+  const notesBtn = document.getElementById('notes');
 
   if (total > 0) {
-    if (totalQtySpan) totalQtySpan.textContent = total;
-    if (floatingBtn) {
-      floatingBtn.style.display = 'block';
-      // Simple label update for floating button
-      floatingBtn.innerHTML = `🛒 ${translations[currentLang].floatingText}: (<span id="totalQty">${total}</span>)`;
+    if (container) container.style.display = 'flex';
+    
+    if (floatBtn) {
+      // Get translation or fallback to English
+      const label = translations[currentLang].floatingText || "Total Items";
+      const itemsLabel = currentLang === 'ar' ? "عناصر" : "items";
+      
+      // Update the button text
+      floatBtn.innerHTML = `🛒 ${label}: (<span id="totalQty">${total}</span> ${itemsLabel})`;
+    }
+
+    if (notesBtn) {
+      notesBtn.innerText = currentLang === 'ar' ? "إضافة ملاحظات 📝" : "Add Notes 📝";
     }
   } else {
-    if (floatingBtn) floatingBtn.style.display = 'none';
+    if (container) container.style.display = 'none';
   }
 }
+
+
+
+
+
+
+
+// 2. Add the click listener (place this inside your initialization code)
+document.querySelector('.notesBtn').onclick = () => {
+  const userNote = prompt(currentLang === 'en' ? "Add special instructions:" : "أضف ملاحظات خاصة:", orderNote);
+  if (userNote !== null) {
+    orderNote = userNote;
+    alert(currentLang === 'en' ? "Note saved!" : "تم حفظ الملاحظة!");
+  }
+};
 
 function handleProceed() {
   const selectedItems = [];
@@ -313,6 +339,17 @@ container.innerHTML = `<h1>${translations[currentLang].summary}</h1>` + itemsHtm
             <h2 dir="ltr">$${total.toFixed(2)}</h2>
         </div>`;
 
+
+
+ if (typeof orderNote !== 'undefined' && orderNote && orderNote.trim() !== "") {
+    const noteLabel = isAr ? "ملاحظات:" : "Notes:";
+    // Use border-inline-start to support both AR and EN automatically
+    container.innerHTML  += `
+        <div style="margin-top: 20px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; border-inline-start: 5px solid #00008b; text-align: ${isAr ? 'right' : 'left'};">
+            <strong style="display: block; margin-bottom: 5px; color: red;">${noteLabel}</strong>
+            <p style="margin: 0; font-style: italic; color: white;">${orderNote}</p>
+        </div>`;
+  }
   // 5. Create Controls (Buttons)
   const controlsContainer = document.createElement('div');
   controlsContainer.className = 'summary-controls';
@@ -357,21 +394,17 @@ function sendWhatsAppOrder(items, currentTotal) {
   const isAr = currentLang === 'ar';
   const phoneNumber = "96176045076";
 
-  // Header based on language
   let whatsappText = isAr ? "*طلب جديد:*\n" : "*New Order:*\n";
 
-  // Build item list
   items.forEach(item => {
     const itemName = item.name[currentLang];
     if (isAr) {
-      // \u202B forces the whole line to behave as Right-To-Left
-      whatsappText += `\u202B• ${itemName} (${item.qty} x ${item.price})\u202C\n`;
+      whatsappText += `\u202B• ( ${item.price} x ${item.qty} ${itemName} )\u202C\n`;
     } else {
       whatsappText += `• ${itemName} (${item.qty} x ${item.price})\n`;
     }
   });
 
-  // Grand Total
   const totalLabel = isAr ? "المبلغ الإجمالي" : "Grand Total";
   if (isAr) {
     whatsappText += `\n\u202B*${totalLabel}: $${currentTotal.toFixed(2)}*\u202C`;
@@ -379,7 +412,13 @@ function sendWhatsAppOrder(items, currentTotal) {
     whatsappText += `\n*${totalLabel}: $${currentTotal.toFixed(2)}*`;
   }
 
-  // Handle Location
+  // --- ADDED NOTE SECTION ---
+  if (orderNote && orderNote.trim() !== "") {
+    const noteHeader = isAr ? "📝 ملاحظات:" : "📝 Notes:";
+    whatsappText += `\n\n${noteHeader}\n${orderNote}`;
+  }
+  // --------------------------
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -398,6 +437,8 @@ function sendWhatsAppOrder(items, currentTotal) {
   } else {
     finishWhatsApp(whatsappText, phoneNumber);
   }
+
+  
 }
 
 // Helper to open the final link

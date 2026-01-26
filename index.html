@@ -17,19 +17,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="icon" type="image/png" href="icon/Meal_menu.jpg">
   <!-- Link Manifest -->
-<link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json">
 
-<!-- Mobile Meta Tags -->
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#3949AB">
+  <!-- Mobile Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#3949AB">
 
-<script>
-  // Register Service Worker
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
-  }
-</script>
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
 
 
   <style>
@@ -47,78 +47,136 @@
       z-index: 9999;
       transition: opacity 0.5s ease;
     }
+
     #preloader.hidden {
       opacity: 0;
       pointer-events: none;
     }
 
-@keyframes loader {
-  0% { width: 10%; transform: rotate(0deg); }
-  10% { left: 0%; transform: rotate(0deg); }
-  20% { width: 0%; left: 20%; }
-  30% { width: 25%; }
-  50% { left: 15%; width: 35%; }
-  70% { width: 30%; left: 18%; transform: rotate(240deg); }
-  90% { width: 30%; left: 10%; }
-  100% { width: 2%; left: 25%; transform: rotate(360deg); }
-}
+    @keyframes loader {
+      0% {
+        width: 10%;
+        transform: rotate(0deg);
+      }
 
-@keyframes pan {
-  0%, 100% { transform: rotate(0deg); transform-origin: top right; }
-  10% { transform: rotate(-2deg); transform-origin: top right; }
-  50% { transform: rotate(15deg); }
-}
+      10% {
+        left: 0%;
+        transform: rotate(0deg);
+      }
 
-@keyframes shadow {
-  0%, 100% { width: 30%; }
-  50% { width: 40%; left: 20px; }
-}
+      20% {
+        width: 0%;
+        left: 20%;
+      }
 
-.pan-loader {
-  width: 180px;
-  height: 180px;
-  margin: 100px auto;
-}
-.pan-loader .loader {
-  position: relative;
-  top: 10%;
-  left: 0;
-  z-index: -1;
-  width: 60%;
-  height: 45%;
-  border: 10px solid transparent;
-  border-bottom: 10px solid #FDD835;
-  border-radius: 50%;
-  animation: loader 2s linear infinite;
-}
-.pan-loader .pan-container {
-  display: flex;
-  width: 100%;
-  animation: pan 2s infinite;
-}
-.pan-loader .pan {
-  width: 60%;
-  height: 20px;
-  background: linear-gradient(#3949AB, #5C6BC0);
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
-.pan-loader .handle {
-  width: 40%;
-  height: 10px;
-  background: linear-gradient(#3949AB, #5C6BC0);
-  border-radius: 10px;
-}
-.pan-loader .shadow {
-  position: relative;
-  top: 15%;
-  left: 15%;
-  width: 30%;
-  height: 8px;
-  background: lightgray;
-  border-radius: 20px;
-  animation: shadow 2s infinite;
-}
+      30% {
+        width: 25%;
+      }
+
+      50% {
+        left: 15%;
+        width: 35%;
+      }
+
+      70% {
+        width: 30%;
+        left: 18%;
+        transform: rotate(240deg);
+      }
+
+      90% {
+        width: 30%;
+        left: 10%;
+      }
+
+      100% {
+        width: 2%;
+        left: 25%;
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pan {
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+        transform-origin: top right;
+      }
+
+      10% {
+        transform: rotate(-2deg);
+        transform-origin: top right;
+      }
+
+      50% {
+        transform: rotate(15deg);
+      }
+    }
+
+    @keyframes shadow {
+
+      0%,
+      100% {
+        width: 30%;
+      }
+
+      50% {
+        width: 40%;
+        left: 20px;
+      }
+    }
+
+    .pan-loader {
+      width: 180px;
+      height: 180px;
+      margin: 100px auto;
+    }
+
+    .pan-loader .loader {
+      position: relative;
+      top: 10%;
+      left: 0;
+      z-index: -1;
+      width: 60%;
+      height: 45%;
+      border: 10px solid transparent;
+      border-bottom: 10px solid #FDD835;
+      border-radius: 50%;
+      animation: loader 2s linear infinite;
+    }
+
+    .pan-loader .pan-container {
+      display: flex;
+      width: 100%;
+      animation: pan 2s infinite;
+    }
+
+    .pan-loader .pan {
+      width: 60%;
+      height: 20px;
+      background: linear-gradient(#3949AB, #5C6BC0);
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+
+    .pan-loader .handle {
+      width: 40%;
+      height: 10px;
+      background: linear-gradient(#3949AB, #5C6BC0);
+      border-radius: 10px;
+    }
+
+    .pan-loader .shadow {
+      position: relative;
+      top: 15%;
+      left: 15%;
+      width: 30%;
+      height: 8px;
+      background: lightgray;
+      border-radius: 20px;
+      animation: shadow 2s infinite;
+    }
 
 
     .pan-loader {
@@ -129,6 +187,7 @@
       flex-direction: column;
       align-items: center;
     }
+
     .loader {
       position: relative;
       top: 10%;
@@ -141,11 +200,13 @@
       border-radius: 50%;
       animation: loader 2s linear infinite;
     }
+
     .pan-container {
       display: flex;
       width: 100%;
       animation: pan 2s linear infinite;
     }
+
     .pan {
       width: 60%;
       height: 20px;
@@ -153,12 +214,14 @@
       border-bottom-right-radius: 20px;
       border-bottom-left-radius: 20px;
     }
+
     .handle {
       width: 40%;
       height: 10px;
       background: linear-gradient(#3949AB, #5C6BC0);
       border-radius: 10px;
     }
+
     .shadow {
       position: relative;
       top: 15%;
@@ -176,60 +239,74 @@
         width: 10%;
         transform: rotate(0deg);
       }
+
       10% {
         left: 0%;
         transform: rotate(0deg);
       }
+
       20% {
         width: 0%;
         left: 20%;
       }
+
       30% {
         width: 25%;
       }
+
       50% {
         left: 15%;
         width: 35%;
       }
+
       70% {
         width: 30%;
         left: 18%;
         transform: rotate(240deg);
       }
+
       90% {
         width: 30%;
         left: 10%;
       }
+
       100% {
         width: 2%;
         left: 25%;
         transform: rotate(360deg);
       }
     }
+
     @keyframes pan {
       0% {
         transform: rotate(0deg);
         transform-origin: top right;
       }
+
       10% {
         transform: rotate(-2deg);
         transform-origin: top right;
       }
+
       50% {
         transform: rotate(15deg);
       }
+
       100% {
         transform: rotate(0deg);
       }
     }
+
     @keyframes shadow {
       0% {
         width: 30%;
       }
+
       50% {
         width: 40%;
         left: 20px;
       }
+
       100% {
         width: 30%;
       }
@@ -253,77 +330,84 @@
 
 
 
-<div id="main-app-container">
-  <div class="main-content">
-    <!-- Homepage -->
-    <div id="homepage" class="page active">
-      <header>
-        <h1><span class="brand">Welcome to Delicious Bites</h1><div class="language-switch" style="text-align: right; padding: 10px;">
-  <div class="language-switcher" style="text-align: center; padding: 15px;">
-  <button onclick="setLanguage('en')" class="btn btn-outline-primary btn-sm">English</button>
-  <button onclick="setLanguage('ar')" class="btn btn-outline-primary btn-sm">العربية</button>
-</div>
+  <div id="main-app-container">
+    <div class="main-content">
+      <!-- Homepage -->
+      <div id="homepage" class="page active">
+        <header>
+          <h1><span class="brand">Welcome to Delicious Bites</h1>
+          <div class="language-switch" style="text-align: right; padding: 10px;">
+            <div class="language-switcher" style="text-align: center; padding: 15px;">
+              <button onclick="setLanguage('en')" class="btn btn-outline-primary btn-sm">English</button>
+              <button onclick="setLanguage('ar')" class="btn btn-outline-primary btn-sm">العربية</button>
+            </div>
 
-      </header>
+        </header>
 
-      <div class="categories">
-        <div class="category-card" data-category="beverages">
-          
-          <h3>Beverages 🍹</h3>
-        </div>
-        <div class="category-card" data-category="chinese">
-          <h3>Chinese Cuisine 🥡</h3>
-        </div>
-        <div class="category-card" data-category="indian">
-          <h3>Indian Cuisine 🍛</h3>
-        </div>
-        <div class="category-card" data-category="Rice">
-          <h3>Rice & Biryani 🍚</h3>
-        </div>
-        <div class="category-card" data-category="Special_Combos">
-          <h3>Special Combos 🍽️</h3>
-        </div>
-        <div class="category-card" data-category="desserts">
-          <h3>Desserts</h3>
+        <div class="categories">
+          <div class="category-card" data-category="beverages">
+
+            <h3>Beverages 🍹</h3>
+          </div>
+          <div class="category-card" data-category="chinese">
+            <h3>Chinese Cuisine 🥡</h3>
+          </div>
+          <div class="category-card" data-category="indian">
+            <h3>Indian Cuisine 🍛</h3>
+          </div>
+          <div class="category-card" data-category="Rice">
+            <h3>Rice & Biryani 🍚</h3>
+          </div>
+          <div class="category-card" data-category="Special_Combos">
+            <h3>Special Combos 🍽️</h3>
+          </div>
+          <div class="category-card" data-category="desserts">
+            <h3>Desserts</h3>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Category Page -->
-    <div id="category-page" class="page">
-      <header>
-        <button id="back-button">Back To Main Menu</button>
-        <button class="proceed" id="proceed">Order Summary</button>
-        <h2 id="category-title"></h2>
-      </header>
+      <!-- Category Page -->
+      <div id="category-page" class="page">
+        <header>
+          <button id="back-button">Back To Main Menu</button>
+          <button class="proceed" id="proceed">Order Summary</button>
+          <h2 id="category-title"></h2>
+        </header>
 
-      <div class="items-list">
-        <!-- Items will be dynamically inserted here -->
+        <div class="items-list">
+          <!-- Items will be dynamically inserted here -->
+        </div>
+        <div id="notesBtns">
+        <button id="floatingProceed" class="floating-proceed-btn" onclick="goToSummary()">
+          🛒 Total Items: (<span id="totalQty">0</span> items)
+        </button>
+
+        <button id="notes" class="notesBtn" onclick="">
+          Add Notes
+        </button>
       </div>
-      <button id="floatingProceed" class="floating-proceed-btn" onclick="goToSummary()">
- 🛒 Total Items: (<span id="totalQty">0</span> items)  
-</button>
+      </div>
+
     </div>
-  
-  </div>
-  <div id="summary-view" class="page" style="display: none;">
+    <div id="summary-view" class="page" style="display: none;">
       <div class="summary-container"></div>
+    </div>
   </div>
-</div>
-<div id="thank-you-popup">
-  <h2 id="thanks-title">Thank You!</h2>
-  <p id="thanks-msg">Your order has been sent via WhatsApp.</p>
-  <button id="thanks-btn" onclick="location.reload()">OK</button>
-</div>
+  <div id="thank-you-popup">
+    <h2 id="thanks-title">Thank You!</h2>
+    <p id="thanks-msg">Your order has been sent via WhatsApp.</p>
+    <button id="thanks-btn" onclick="location.reload()">OK</button>
+  </div>
   <footer>
     <p>
       Designed by
-      
-       
- <a href="https://pro-developer-seven.vercel.app/" target="_blank">
-   ProDeveloper
-        </a>
-      
+
+
+      <a href="https://pro-developer-seven.vercel.app/" target="_blank">
+        ProDeveloper
+      </a>
+
   </footer>
 
   <!-- Your JS files -->
@@ -332,12 +416,13 @@
 
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-    document.addEventListener('dblclick', function(event) {
-        event.preventDefault();
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener('dblclick', function (event) {
+      event.preventDefault();
     }, { passive: false });
-</script>
+  </script>
 
 </body>
 
